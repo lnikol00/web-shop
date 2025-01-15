@@ -1,0 +1,95 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Web Shop Details";
+
+    var averageRating = Model.Reviews.Any() ? Model.Reviews.Average(r => r.Rating) : 0;
+    int fullStars = (int)averageRating;
+    int totalStars = 5;
+}
+
+@if (Model != null)
+{
+    <div id="content">
+        <div class="container d-flex justify-content-center align-items-center ">
+            <div class="row  d-flex justify-content-center align-items-center w-100">
+
+                <div class="col-md-5">
+                    <h2>@Model.Title</h2>
+                    <p><strong>Price:</strong> $@Model.Price</p>
+                    <p><strong>Description:</strong> @Model.Description</p>
+                    <p><strong>Stock:</strong> @Model.Stock</p>
+                    <p><strong>Availability:</strong> @Model.Availability</p>
+
+                    <div class="average-rating mt-3" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#reviewsModal">
+                        <strong>Rating:</strong>
+                        @for (int i = 1; i <= totalStars; i++)
+                        {
+                            if (i <= fullStars)
+                            {
+                                <span class="fa fa-star text-warning"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star-o text-warning"></span>
+                            }
+                        }
+                        (<strong>@averageRating.ToString("F1")</strong>)
+                    </div>
+
+                    <div class="mt-4">
+                        <form action="@Url.Action("AddToCart", "Cart")" method="post">
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            <input type="hidden" name="title" value="@Model.Title" />
+                            <input type="hidden" name="price" value="@Model.Price" />
+                            <input type="hidden" name="image" value="@Model.Image" />
+                            <div class="input-group mb-4">
+                                <span class="input-group-text">Quantity</span>
+                                <button type="button" class="btn btn-outline-secondary" id="decrease-btn">-</button>
+                                <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 80px;" id="quantity-input" />
+                                <button type="button" class="btn btn-outline-secondary" id="increase-btn">+</button>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <img src="@Model.Image" alt="@Model.Title" class="img-fluid" style="max-width: 100%; height: auto; object-fit: contain;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>@ViewBag.ErrorMessage</p>
+}
+
+<partial name="_Modal" />
+
+@section scripts {
+    <script>
+        showSpinner();
+
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                hideSpinner();
+                document.getElementById("content").style.display = "block";
+            }, 500);
+        });
+
+
+              document.getElementById("increase-btn").addEventListener("click", function () {
+            let quantityInput = document.getElementById("quantity-input");
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+        });
+
+        document.getElementById("decrease-btn").addEventListener("click", function () {
+            let quantityInput = document.getElementById("quantity-input");
+            if (parseInt(quantityInput.value) > 1) {
+                quantityInput.value = parseInt(quantityInput.value) - 1;
+            }
+        });
+    </script>
+}                       

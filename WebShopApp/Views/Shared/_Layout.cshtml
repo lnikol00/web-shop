@@ -1,0 +1,62 @@
+﻿@using WebShopApp.Extensions
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebShopApp</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebShopApp.styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" asp-append-version="true">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin asp-append-version="true">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet" asp-append-version="true">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+    @{
+
+        var cartItems = Context.Session.GetObjectFromJson<List<CartViewModel>>("CartItems") ?? new List<CartViewModel>();
+    }
+
+
+    <header>
+        <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-black border-bottom box-shadow mb-3">
+            <div class="container-fluid d-flex justify-content-between px-5">
+                <a class="navbar-brand fs-3" asp-area="" asp-controller="Home" asp-action="Index">OnlineShop</a>
+                <div class="navbar-nav ms-auto">
+                    <a href="/Cart" class="text-white fs-3 position-relative d-inline-block text-decoration-none">
+                        <i class="fa-solid fa-bag-shopping mx-2"></i>
+                        @if (cartItems.Count > 0)
+                        {
+                            <span class="badge bg-warning text-dark rounded-circle cart-badge fs-6 position-absolute">
+                                @cartItems.Count
+                            </span>
+                        }
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <partial name="_Notification" />
+            <partial name="_Spinner" />
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - Online Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

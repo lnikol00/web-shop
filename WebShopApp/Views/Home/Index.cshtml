@@ -1,0 +1,95 @@
+﻿@model List<ProductViewModel>
+
+@{
+    ViewData["Title"] = "Web Shop";
+}
+
+
+<div id="content">
+    <div class="container">
+        <h2 class="text-center">New Arrivals</h2>
+
+
+        <form method="get" action="@Url.Action("Index")" class="mb-4">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6">
+                    <label for="categorySelect" class="form-label">Select Category</label>
+                    <select id="categorySelect" class="form-select" name="category" onchange="this.form.submit()">
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            var isSelected = category.Value == ViewBag.SelectedCategory;
+
+                            <option value="@category.Value" selected="@isSelected">@category.Description</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </form>
+        @if (Model != null && Model.Count > 0)
+        {
+            <div class="product-list d-flex flex-wrap justify-content-center">
+                @foreach (var product in Model)
+                {
+                    <div class="product-item card m-3 text-center" style="width: 18rem; height: auto;">
+
+                        <img src="@product.Image" alt="@product.Title" class="product-image card-img-top"
+                             style="height: 13rem; object-fit: contain; width: 100%;" />
+
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="product-info">
+                                <h3 class="card-title">@product.Title</h3>
+                                <p><strong>Price:</strong> @product.Price</p>
+                            </div>
+
+                            <div class="product-buttons mt-2">
+                                <a href="@Url.Action("Details", new { id = product.Id })" class="btn btn-primary mb-2" style="width: 100%;">View Details</a>
+
+                                <form action="@Url.Action("AddToCart", "Cart")" method="post">
+                                    <input type="hidden" name="id" value="@product.Id" />
+                                    <input type="hidden" name="title" value="@product.Title" />
+                                    <input type="hidden" name="price" value="@product.Price" />
+                                    <input type="hidden" name="image" value="@product.Image" />
+                                    <input type="hidden" name="quantity" value="1" />
+                                    <button type="submit" class="btn btn-primary" style="width: 100%;">Add to Cart <i class="fa-solid fa-cart-shopping"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="pagination d-flex justify-content-center align-items-center mt-4">
+                @if (ViewBag.PageNumber > 1)
+                {
+                    <a href="@Url.Action("Index", new { pageNumber = ViewBag.PageNumber - 1 })" class="btn btn-primary me-3">&laquo; Previous</a>
+                }
+
+                <span>Page @ViewBag.PageNumber of @ViewBag.TotalPages</span>
+
+                @if (ViewBag.PageNumber < ViewBag.TotalPages)
+                {
+                    <a href="@Url.Action("Index", new { pageNumber = ViewBag.PageNumber + 1 })" class="btn btn-primary ms-3">Next &raquo;</a>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center">
+                <p>@ViewBag.ErrorMessage</p>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        showSpinner();
+
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                hideSpinner();
+                document.getElementById("content").style.display = "block";
+            }, 500);
+        });
+    </script>
+}        

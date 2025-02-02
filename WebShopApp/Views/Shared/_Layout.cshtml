@@ -1,4 +1,5 @@
-﻿@using WebShopApp.Extensions
+﻿@using WebShopApp.Infrastructure.Services
+@using WebShopApp.Models.Shop
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="~/WebShopApp.styles.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com" asp-append-version="true">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin asp-append-version="true">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet" asp-append-version="true">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
@@ -24,18 +26,26 @@
 
     <header>
         <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-black border-bottom box-shadow mb-3">
-            <div class="container-fluid d-flex justify-content-between px-5">
-                <a class="navbar-brand fs-3" asp-area="" asp-controller="Home" asp-action="Index">OnlineShop</a>
-                <div class="navbar-nav ms-auto">
-                    <a href="/Cart" class="text-white fs-3 position-relative d-inline-block text-decoration-none">
-                        <i class="fa-solid fa-bag-shopping mx-2"></i>
-                        @if (cartItems.Count > 0)
-                        {
-                            <span class="badge bg-warning text-dark rounded-circle cart-badge fs-6 position-absolute">
-                                @cartItems.Count
-                            </span>
-                        }
-                    </a>
+            <div class="container-fluid px-5">
+                <div class="navbar-nav d-flex justify-content-start align-items-center ms-0 gap-2">
+                    <div class="dropdown">
+                        <partial name="_DropdownMenu" />
+                    </div>
+                </div>
+
+                <div class="navbar-nav ms-auto gap-2">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a class="navbar-brand fs-3" asp-area="" asp-controller="Home" asp-action="Index">OnlineShop</a>
+                        <a href="/Cart" class="text-white fs-3 position-relative d-inline-block text-decoration-none">
+                            <i class="fa-solid fa-bag-shopping mx-2"></i>
+                            @if (cartItems.Count > 0)
+                            {
+                                <span class="badge bg-warning text-dark rounded-circle cart-badge fs-6 position-absolute">
+                                    @cartItems.Count
+                                </span>
+                            }
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -57,6 +67,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,39 @@
+﻿@{
+    var userClaims = new WebShopApp.DAL.Models.CustomClaimsPrincipal(User);
+}
+
+<div class="btn-group">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        Hi @(userClaims.FirstName + " " + userClaims.LastName)
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+
+            <div class="dropdown-header d-flex flex-row py-4 rounded-top">
+                <div class="d-flex flex-row align-items-center mt-1 mb-1">
+                    <span class="mr-2">
+                        <img src="@Url.Action("GetProfilePicture", "Home", new { area = "SelfService" })" class="rounded-circle profile-image-custom" alt="@(userClaims.FirstName + " " + userClaims.LastName)">
+                    </span>
+                    <div class="info-card-text">
+                        <div class="fs-lg text-truncate text-truncate-lg">@(userClaims.FirstName + " " + userClaims.LastName)</div>
+                        <span class="text-truncate text-truncate-md opacity-90">@(userClaims.Email)</span>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li><div class="dropdown-divider m-0"></div></li>
+        <li>
+            <a href="@Url.Action("Index", "Home", new { area = "SelfService" })" class="dropdown-item">
+                <span>Profile</span>
+            </a>
+        </li>
+
+        <li><div class="dropdown-divider m-0"></div></li>
+        <li>
+            <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+                <span data-i18n="drpdwn.page-logout">Logout</span>
+                <span class="float-right fw-n"> </span>
+            </a>
+        </li>
+    </ul>
+</div>

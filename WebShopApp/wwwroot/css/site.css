@@ -44,3 +44,12 @@ body {
 .sticky-top {
     z-index: 1000;
 }
+
+/*Profile picture*/
+
+.profile-image-custom {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: inline-block;
+    position: relative;
+}

@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
-namespace WebShopApp.Extensions
+namespace WebShopApp.Infrastructure.Services
 {
-    public static class SessionExtension
+    public static class SessionExtensions
     {
         public static void SetObjectAsJson(this ISession session, string key, object value)
         {
@@ -14,7 +12,7 @@ namespace WebShopApp.Extensions
         public static T? GetObjectFromJson<T>(this ISession session, string key)
         {
             var value = session.GetString(key);
-            return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+            return value == null ? default : JsonConvert.DeserializeObject<T>(value);
         }
     }
 }

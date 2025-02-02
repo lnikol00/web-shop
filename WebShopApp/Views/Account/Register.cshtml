@@ -1,0 +1,40 @@
+﻿@model WebShopApp.Models.Account.RegisterViewModel
+
+@{
+    Layout = "_LoginLayout";
+}
+
+<div class="login-page">
+    <div class="form">
+        <div class="login">
+            <div class="login-header">
+                <h3>OnlineShop</h3>
+            </div>
+        </div>
+        <form class="login-form" data-ajax="true" data-ajax-method="POST" asp-action="Register">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <input type="text" asp-for="FirstName" placeholder="First Name" required />
+            <input type="text" asp-for="LastName" placeholder="Last Name" required />
+            <input type="email" asp-for="Email" placeholder="Email" required />
+            <input type="password" asp-for="Password" placeholder="Password" required />
+            <span class="invalid-feedback" asp-validation-for="Password"></span>
+            <input type="password" asp-for="ConfirmPassword" placeholder="Repeat Password" required />
+
+            <br />
+            <button>Register</button>
+            <p class="message">
+                <a class="ml-auto mr-2" asp-controller="account" asp-action="login">
+                    Login
+                </a>
+            </p>
+            <p class="message">
+                <a class="mr-2" asp-controller="account" asp-action="ForgotPassword">
+                    Forgot Password ?
+                </a>
+            </p>
+        </form>
+    </div>
+</div>
+

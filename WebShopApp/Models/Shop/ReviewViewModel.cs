@@ -1,4 +1,4 @@
-﻿namespace WebShopApp.Models
+﻿namespace WebShopApp.Models.Shop
 {
     public class ReviewViewModel
     {

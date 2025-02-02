@@ -11,8 +11,3 @@ function showSpinner() {
 function hideSpinner() {
     document.getElementById("spinner").style.display = "none";
 }
-
-
-//if (!localStorage.getItem('cartItems')) {
-//    localStorage.setItem('cartItems', JSON.stringify([])); // Initialize as an empty array
-//}

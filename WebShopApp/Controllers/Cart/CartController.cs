@@ -2,13 +2,14 @@
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http;
+using WebShopApp.Controllers.Base;
 using WebShopApp.DAL.Models;
-using WebShopApp.Extensions;
-using WebShopApp.Models;
+using WebShopApp.Infrastructure.Services;
+using WebShopApp.Models.Shop;
 
-namespace WebShopApp.Controllers
+namespace WebShopApp.Controllers.Cart
 {
-    public class CartController : Controller
+    public class CartController : BaseController
     {
         public IActionResult Index()
         {
@@ -50,7 +51,7 @@ namespace WebShopApp.Controllers
 
             TempData["info"] = "Item added to the cart.";
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Cart");
         }
 
         public IActionResult RemoveFromCart(int id)

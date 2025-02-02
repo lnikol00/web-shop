@@ -1,16 +1,19 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Text.Json;
+using WebShopApp.Controllers.Base;
 using WebShopApp.DAL.Enums;
 using WebShopApp.DAL.Models;
 using WebShopApp.Exceptions;
 using WebShopApp.Models;
+using WebShopApp.Models.Shop;
 
 namespace WebShopApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -81,9 +84,7 @@ namespace WebShopApp.Controllers
             }
             else
             {
-                _logger.LogWarning("No products available!");
                 ViewBag.ErrorMessage = "No products available!";
-                throw new ErrorMessage("No products available!");
             }
 
             return View(request);
@@ -124,9 +125,7 @@ namespace WebShopApp.Controllers
             }
             else
             {
-                _logger.LogWarning("Product with specified ID doesn't exist!");
                 ViewBag.ErrorMessage = "Product with specified ID doesn't exist!";
-                throw new ErrorMessage("Product with specified ID doesn't exist!");
             }
 
             return View(request);
@@ -143,7 +142,7 @@ namespace WebShopApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        #region private
+        #region PRIVATE 
         private async Task<T> GetApiResponse<T>(string url)
         {
             try

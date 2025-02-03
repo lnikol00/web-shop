@@ -33,6 +33,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
 
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
 builder.Services.AddScoped<IRepository, EFRepository<Context>>();
 
 builder.Services.ConfigureApplicationCookie(options =>

@@ -26,3 +26,12 @@ function deleteImage() {
         }
     });
 }
+
+function enableEdit() {
+    document.getElementById("phoneDisplay").style.display = "none";
+    document.getElementById("addressDisplay").style.display = "none";
+    document.getElementById("phoneEdit").style.display = "block";
+    document.getElementById("addressEdit").style.display = "block";
+    document.getElementById("editButton").style.display = "none";
+    document.getElementById("saveButton").style.display = "inline-block";
+}

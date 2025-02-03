@@ -28,7 +28,6 @@ namespace WebShopApp.DAL.Models
 
         [MaxLength(16)]
         [Display(Name = "Phone Number")]
-        [Required]
         public string? Phone { get; set; }
 
         [MaxLength(128)]

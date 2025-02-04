@@ -9,7 +9,7 @@ using WebShopApp.Models.Shop;
 
 namespace WebShopApp.Controllers.Cart
 {
-    public class CartController : BaseController
+    public class CartController : Controller
     {
         public IActionResult Index()
         {

@@ -27,6 +27,26 @@ function deleteImage() {
     });
 }
 
+$("#editUserForm").submit(function (e) {
+    e.preventDefault();
+
+    var phone = $("input[name='PhoneNumber']").val();
+    var address = $("input[name='Address']").val();
+
+
+    $.ajax({
+        type: "POST",
+        url: '/SelfService/Home/EditUser',
+        data: { PhoneNumber: phone, Address: address },
+        success: function (data) {
+            location.reload();
+        },
+        error: function (data) {
+            alert("Došlo je do greške pri čuvanju podataka.");
+        }
+    });
+});
+
 function enableEdit() {
     document.getElementById("phoneDisplay").style.display = "none";
     document.getElementById("addressDisplay").style.display = "none";

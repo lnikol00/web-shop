@@ -106,5 +106,29 @@ namespace WebShopApp.Areas.SelfService.Controllers
 
             return base.Accepted();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(ApplicationUser model)
+        {
+            var korisnik = await repository.GetByIdAsync<ApplicationUser>(model.Id);
+
+            if (korisnik != null)
+            {
+                if (string.IsNullOrEmpty(model.Phone) || string.IsNullOrEmpty(model.Adresa))
+                {
+                    if (korisnik.Phone != model.Phone)
+                    {
+                        korisnik.Phone = model.Phone;
+                        korisnik.Adresa = model.Adresa;
+                        repository.Update(korisnik, Korisnik.Name);
+                        await repository.SaveAsync();
+                        TempData["Message"] = "Profil je uspešno ažuriran!";
+                    }
+                }
+            }
+
+            return base.Accepted();
+        }
+
     }
 }

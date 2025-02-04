@@ -32,9 +32,9 @@
                         <div class="d-flex flex-column align-items-center justify-content-center mt-4">
                             <div class="col-md-12">
                                 <hr />
-                                <form asp-action="UpdateUserProfile" method="post">
+                                <form method="post" id="editUserForm">
                                     <table class="table table-sm table-border-0 table-responsive table-hover">
-                                        <tr >
+                                        <tr>
                                             <td><strong>Email:</strong></td>
                                             <td>@Model.User.Email</td>
                                         </tr>
@@ -42,18 +42,18 @@
                                             <td><strong>Phone number:</strong></td>
                                             <td id="phoneDisplay">@Model.User.PhoneNumber</td>
                                             <td id="phoneEdit" style="display: none;">
-                                                <input type="text" placeholder="Insert phone number" name="PhoneNumber" class="form-control" value="@Model.User.PhoneNumber" required />
+                                                <input type="text" placeholder="Insert phone number" name="PhoneNumber" class="form-control border-0" style="outline: none; height: 30px;" value="@Model.User.Phone" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><strong>Address:</strong></td>
                                             <td id="addressDisplay">@Model.User.Adresa</td>
                                             <td id="addressEdit" style="display: none;">
-                                                <input type="text" placeholder="Insert home address" name="Address" class="form-control" style="outline: none; height: 30px;" value="@Model.User.Adresa" required />
+                                                <input type="text" placeholder="Insert home address" name="Address" class="form-control border-0" style="outline: none; height: 30px;" value="@Model.User.Adresa" />
                                             </td>
                                         </tr>
                                     </table>
-                                    
+
                                     <div class="text-center">
                                         <button type="button" class="btn btn-primary mb-3" id="editButton" onclick="enableEdit();">Uredi</button>
                                         <button type="submit" class="btn btn-primary mb-3" id="saveButton" style="display: none;">Save Changes</button>

@@ -87,6 +87,7 @@ app.MapStaticAssets();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapAreaControllerRoute(name: "MyAreaSelfService", areaName: "SelfService", pattern: "SelfService/{controller}/{action}/{id?}", new { controller = "Home", action = "Index" });
+    endpoints.MapAreaControllerRoute(name: "MyAreaOrders", areaName: "Orders", pattern: "Orders/{controller}/{action}/{id?}", new { controller = "Home", action = "Index" });
 
 
     endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action}/{id?}", new { controller = "Home", action = "Index" });

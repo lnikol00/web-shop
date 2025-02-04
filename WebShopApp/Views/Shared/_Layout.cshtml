@@ -28,9 +28,16 @@
         <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-black border-bottom box-shadow mb-3">
             <div class="container-fluid px-5">
                 <div class="navbar-nav d-flex justify-content-start align-items-center ms-0 gap-2">
+                 @if (User.Identity.IsAuthenticated)  
+                {
                     <div class="dropdown">
                         <partial name="_DropdownMenu" />
                     </div>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="nav-link text-white" style="font-size:18px;">Login</a>
+                }
                 </div>
 
                 <div class="navbar-nav ms-auto gap-2">

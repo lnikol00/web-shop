@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\NewFolder\" />
+    <Folder Include="Areas\Orders\Models\" />
   </ItemGroup>
 
 </Project>

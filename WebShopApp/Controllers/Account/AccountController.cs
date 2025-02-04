@@ -34,19 +34,20 @@ namespace WebShopApp.Controllers.Account
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login(string returnUrl)
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
 
             LoginViewModel model = new LoginViewModel();
+            model.returnUrl = returnUrl;
 
             return View(model);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid == false)
                 return View(model);
@@ -73,7 +74,7 @@ namespace WebShopApp.Controllers.Account
                 repository.Update<ApplicationUser>(user);
                 await repository.SaveAsync();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(returnUrl);
             }
             else
             {
@@ -88,7 +89,7 @@ namespace WebShopApp.Controllers.Account
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home", new {area = ""});
         }
 
         #endregion

@@ -110,22 +110,27 @@ namespace WebShopApp.Areas.SelfService.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUser(ApplicationUser model)
         {
-            var korisnik = await repository.GetByIdAsync<ApplicationUser>(model.Id);
+            var korisnik = await repository.GetByIdAsync<ApplicationUser>(Korisnik.Id);
 
             if (korisnik != null)
             {
-                if (string.IsNullOrEmpty(model.Phone) || string.IsNullOrEmpty(model.Adresa))
+                if (korisnik.Phone != model.Phone)
                 {
-                    if (korisnik.Phone != model.Phone)
-                    {
-                        korisnik.Phone = model.Phone;
-                        korisnik.Adresa = model.Adresa;
-                        repository.Update(korisnik, Korisnik.Name);
-                        await repository.SaveAsync();
-                        TempData["Message"] = "Profil je uspešno ažuriran!";
-                    }
+                    korisnik.Phone = model.Phone;
+                    repository.Update(korisnik, Korisnik.Name);
+                    await repository.SaveAsync();
+                }
+
+
+                if (korisnik.Adresa != model.Adresa)
+                {
+                    korisnik.Adresa = model.Adresa;
+                    repository.Update(korisnik, Korisnik.Name);
+                    await repository.SaveAsync();
                 }
             }
+
+            TempData["success"] = "Profil je uspešno ažuriran!";
 
             return base.Accepted();
         }

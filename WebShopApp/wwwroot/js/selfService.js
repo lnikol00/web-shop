@@ -30,14 +30,14 @@ function deleteImage() {
 $("#editUserForm").submit(function (e) {
     e.preventDefault();
 
-    var phone = $("input[name='PhoneNumber']").val();
-    var address = $("input[name='Address']").val();
+    var phone = $("input[name='Phone']").val();
+    var address = $("input[name='Adresa']").val();
 
 
     $.ajax({
         type: "POST",
         url: '/SelfService/Home/EditUser',
-        data: { PhoneNumber: phone, Address: address },
+        data: { Phone: phone, Adresa: address },
         success: function (data) {
             location.reload();
         },

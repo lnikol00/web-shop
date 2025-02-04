@@ -14,6 +14,7 @@
         <form class="login-form" method="POST" asp-action="Login">
 
             <div asp-validation-summary="All" class="text-danger"></div>
+            <input hidden asp-for="returnUrl" />
 
             <input type="email" asp-for="Email" placeholder="Email" required="required" />
             <input type="password" asp-for="Password" placeholder="Password" required="required" />

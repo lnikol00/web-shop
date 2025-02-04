@@ -17,5 +17,7 @@ namespace WebShopApp.Models.Account
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
 
+        public string returnUrl { get; set; }
+
     }
 }

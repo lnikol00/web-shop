@@ -28,6 +28,5 @@ namespace WebShopApp.Models.Account
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        public string ReturnUrl { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebShopApp.DAL.Models
 {
+    [Table("tShippingAddress")]
     public class ShippingAddress
     {
         [Required]

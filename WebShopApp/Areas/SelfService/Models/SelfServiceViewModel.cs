@@ -6,6 +6,5 @@ namespace WebShopApp.Areas.SelfService.Models
     {
         public ApplicationUser User { get; set; }
 
-
     }
 }

@@ -19,10 +19,10 @@ namespace WebShopApp.DAL.Models
 
         public bool isPaid { get; set; } = false;
 
-        public DateTime PaidAt { get; set; }
+        public DateTime? PaidAt { get; set; }
 
         public bool isDelivered { get; set; } = false;
 
-        public DateTime? DeliveredAt { get; set; }   
+        public DateTime? DeliveredAt { get; set; }
     }
 }

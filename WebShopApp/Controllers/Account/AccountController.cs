@@ -73,7 +73,7 @@ namespace WebShopApp.Controllers.Account
                 repository.Update<ApplicationUser>(user);
                 await repository.SaveAsync();
 
-                return RedirectToAction("Index", "Home", new  { area = "" });
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
             else
             {
@@ -88,7 +88,7 @@ namespace WebShopApp.Controllers.Account
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home", new {area = ""});
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         #endregion
@@ -117,7 +117,6 @@ namespace WebShopApp.Controllers.Account
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 IsUserActive = true,
-
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);

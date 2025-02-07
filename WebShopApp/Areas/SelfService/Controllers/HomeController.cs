@@ -130,7 +130,7 @@ namespace WebShopApp.Areas.SelfService.Controllers
                 }
             }
 
-            TempData["success"] = "Profil je uspešno ažuriran!";
+            TempData["success"] = "Profil updated successfully!";
 
             return base.Accepted();
         }

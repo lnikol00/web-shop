@@ -15,7 +15,7 @@ namespace WebShopApp.Controllers.Cart
         {
             var cartItems = HttpContext.Session.GetObjectFromJson<List<CartViewModel>>("CartItems") ?? new List<CartViewModel>();
 
-            decimal totalPrice = cartItems.Sum(item => item.Price * item.Quantity);
+            double totalPrice = cartItems.Sum(item => item.Price * item.Quantity);
 
             ViewBag.TotalPrice = totalPrice;
             ViewBag.CartItems = cartItems;
@@ -24,7 +24,7 @@ namespace WebShopApp.Controllers.Cart
         }
 
         [HttpPost]
-        public IActionResult AddToCart(int id, string title, decimal price, string image, int quantity)
+        public IActionResult AddToCart(int id, string title, double price, string image, int quantity)
         {
             var cartItems = HttpContext.Session.GetObjectFromJson<List<CartViewModel>>("CartItems") ?? new List<CartViewModel>();
 

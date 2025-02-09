@@ -12,8 +12,8 @@ using WebShopApp.DAL;
 namespace WebShopApp.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250207060806_alterShippingAddress")]
-    partial class alterShippingAddress
+    [Migration("20250208164534_alterOrders3")]
+    partial class alterOrders3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -271,7 +271,7 @@ namespace WebShopApp.Migrations
                     b.Property<double>("EstimatedTotal")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("PaidAt")
+                    b.Property<DateTime?>("PaidAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
@@ -288,7 +288,7 @@ namespace WebShopApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("tUserOrder");
+                    b.ToTable("tOrder");
                 });
 
             modelBuilder.Entity("WebShopApp.DAL.Models.OrderItems", b =>
@@ -323,7 +323,7 @@ namespace WebShopApp.Migrations
                     b.ToTable("tOrderItem");
                 });
 
-            modelBuilder.Entity("WebShopApp.DAL.Models.ShippingAddress", b =>
+            modelBuilder.Entity("WebShopApp.DAL.Models.OrderShippingAddress", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
@@ -348,7 +348,7 @@ namespace WebShopApp.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("tShippingAddress");
+                    b.ToTable("tOrderShippingAddress");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -424,7 +424,7 @@ namespace WebShopApp.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("WebShopApp.DAL.Models.ShippingAddress", b =>
+            modelBuilder.Entity("WebShopApp.DAL.Models.OrderShippingAddress", b =>
                 {
                     b.HasOne("WebShopApp.DAL.Models.Order", "Order")
                         .WithMany()

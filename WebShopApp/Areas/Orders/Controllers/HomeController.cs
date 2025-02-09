@@ -2,6 +2,7 @@
 using WebShopApp.Areas.Orders.Models;
 using WebShopApp.Controllers.Base;
 using WebShopApp.DAL.Models;
+using WebShopApp.Exceptions;
 using WebShopApp.Infrastructure.Interface;
 using WebShopApp.Infrastructure.Services;
 using WebShopApp.Models.Shop;
@@ -25,10 +26,10 @@ namespace WebShopApp.Areas.Orders.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> PlaceOrder(PlaceOrderViewModel placeOrderViewModel)
-        {
 
+        [HttpPost]
+        public async Task<ActionResult> PlaceOrder(ShippingAddressViewModel shippingAddressViewModel)
+        {
             var cartItems = HttpContext.Session.GetObjectFromJson<List<CartViewModel>>("CartItems") ?? new List<CartViewModel>();
             double totalPrice = cartItems.Sum(item => item.Price * item.Quantity);
 
@@ -38,28 +39,38 @@ namespace WebShopApp.Areas.Orders.Controllers
                 EstimatedTotal = totalPrice,
             };
 
-            var shippingAddress = new ShippingAddress
+            repository.Create<Order>(order);
+            await repository.SaveAsync();
+
+            var shippingAddress = new OrderShippingAddress
             {
-                Address = placeOrderViewModel.ShippingAddress.Address,
-                City = placeOrderViewModel.ShippingAddress.City,
-                PostalCode = placeOrderViewModel.ShippingAddress.PostalCode
+                OrderId = order.Id,
+                Address = shippingAddressViewModel.Address,
+                City = shippingAddressViewModel.City,
+                PostalCode = shippingAddressViewModel.PostalCode
             };
 
-            List<OrderItems> orderItems = new List<OrderItems>();
+            repository.Create<OrderShippingAddress>(shippingAddress);
+
             foreach (var item in cartItems)
             {
                 var orderItem = new OrderItems
                 {
+                    OrderId = order.Id,
                     Title = item.Title,
                     Image = item.Image,
                     Price = item.Price,
                     Qty = item.Quantity,
                 };
 
-                orderItems.Add(orderItem);
+                repository.Create<OrderItems>(orderItem);
             }
 
-            return RedirectToAction("OrderDetails", new { id = order.Id });
+            await repository.SaveAsync();
+
+            TempData["success"] = "Order completed!";
+
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
     }
 }

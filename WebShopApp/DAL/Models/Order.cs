@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebShopApp.DAL.Models
 {
-    [Table("tUserOrder")]
+    [Table("tOrder")]
     public class Order
     {
         [Required]

@@ -1,0 +1,69 @@
+﻿@model WebShopApp.DAL.Models.ApplicationUser
+@{
+    ViewData["Title"] = "Self service";
+}
+
+<link href="~/css/selfservice.css" rel="stylesheet" />
+
+@if (Model != null)
+{
+    <div class="container d-flex justify-content-center align-items-center mt-4">
+        <div class="card mb-4 rounded-top col-lg-8 col-md-10 col-sm-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex flex-column align-items-center justify-content-center p-2">
+                        <form id="data" action="/SelfService/Home/ChangeProfileImage" method="post" enctype="multipart/form-data">
+                            <label for="file">
+                                <div class="profile-pic" id="profileImg" style="background-image: url('@Url.Action("GetProfilePicture", "Home", new { area = "SelfService" })')">
+                                    <span class="fas fa-camera fa-2x"></span>
+                                </div>
+                            </label>
+                            <input type="file" name="file" id="file" accept=".jpg, .jpeg, .png" onchange="$('form#data').submit()" style="display:none;">
+                        </form>
+
+                        <button type="button" class="btn btn-danger btn-xs mt-3" onclick="deleteImage();" title="Delete profile image"><i class="fas fa-trash"></i></button>
+                        <h5 class="mb-0 fw-700 text-center mt-3">
+                            @Model.FirstNameLastName
+                        </h5>
+                    </div>
+                    <div class="d-flex flex-column align-items-center justify-content-center mt-4">
+                        <div class="col-md-12">
+                            <hr />
+                            <form method="post" id="editUserForm">
+                                <table class="table table-sm table-border-0 table-responsive table-hover">
+                                    <tr>
+                                        <td><strong>Email:</strong></td>
+                                        <td>@Model.Email</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Phone number:</strong></td>
+                                        <td id="phoneDisplay">@Model.Phone</td>
+                                        <td id="phoneEdit" style="display: none;">
+                                            <input type="text" placeholder="Insert phone number" name="Phone" class="form-control border-0" style="outline: none; height: 30px;" value="@Model.Phone" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Address:</strong></td>
+                                        <td id="addressDisplay">@Model.Adresa</td>
+                                        <td id="addressEdit" style="display: none;">
+                                            <input type="text" placeholder="Insert home address" name="Adresa" class="form-control border-0" style="outline: none; height: 30px;" value="@Model.Adresa" />
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-primary mb-3" id="editButton" onclick="enableEdit();">Uredi</button>
+                                    <button type="submit" class="btn btn-primary mb-3" id="saveButton" style="display: none;">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script src="~/js/selfservice.js" asp-append-version="true"></script>
+}

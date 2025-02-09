@@ -285,7 +285,7 @@ namespace WebShopApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("tUserOrder");
+                    b.ToTable("tOrder");
                 });
 
             modelBuilder.Entity("WebShopApp.DAL.Models.OrderItems", b =>
@@ -320,7 +320,7 @@ namespace WebShopApp.Migrations
                     b.ToTable("tOrderItem");
                 });
 
-            modelBuilder.Entity("WebShopApp.DAL.Models.ShippingAddress", b =>
+            modelBuilder.Entity("WebShopApp.DAL.Models.OrderShippingAddress", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
@@ -345,7 +345,7 @@ namespace WebShopApp.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("tShippingAddress");
+                    b.ToTable("tOrderShippingAddress");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -421,7 +421,7 @@ namespace WebShopApp.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("WebShopApp.DAL.Models.ShippingAddress", b =>
+            modelBuilder.Entity("WebShopApp.DAL.Models.OrderShippingAddress", b =>
                 {
                     b.HasOne("WebShopApp.DAL.Models.Order", "Order")
                         .WithMany()

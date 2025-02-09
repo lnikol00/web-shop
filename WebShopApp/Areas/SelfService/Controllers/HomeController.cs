@@ -23,16 +23,21 @@ namespace WebShopApp.Areas.SelfService.Controllers
             this.repository = repository;
             this.env = env;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Profile()
         {
-            var podaciKorisnika = await repository.GetByIdAsync<ApplicationUser>(Korisnik.Id);
+            var userInfo = await repository.GetByIdAsync<ApplicationUser>(Korisnik.Id);
 
-            var viewModel = new SelfServiceViewModel
-            {
-                User = podaciKorisnika,
-            };
+            return View(userInfo);
+        }
 
-            return View(viewModel);
+        public IActionResult OrderSummary()
+        {
+            return View();
+        }
+        
+        public IActionResult ChangePassword()
+        {
+            return View();
         }
 
 

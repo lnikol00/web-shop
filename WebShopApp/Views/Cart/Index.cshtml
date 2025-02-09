@@ -52,9 +52,10 @@
                 <div>
                     <p class="d-flex justify-content-between fs-5">Subtotal:<strong>$@ViewBag.TotalPrice</strong></p>
                     <p class="text-muted" style="font-size: 0.9rem; text-decoration: none;">Taxes and shipping calculated at checkout</p>
-                    <a href="@Url.Action("Index", "Home", new { area = "Orders" })" class="btn btn-primary btn-md w-100 mb-3">
-                        Checkout
-                    </a>
+
+                 
+                    <button type="button" class="btn btn-primary btn-md w-100 mb-3" onclick="placeOrder()">Checkout</button>
+
                     <a href="@Url.Action("Index", "Home")" class="text-muted" style="font-size: 1rem; text-decoration: none;"> <i class="fa fa-arrow-left"></i> Continue Shopping </a>
                 </div>
             </div>
@@ -64,4 +65,8 @@
 else
 {
     <p class="text-center">Your cart is empty.</p>
+}
+
+@section scripts {
+    <script src="~/js/checkout.js" asp-append-version="true"></script>
 }

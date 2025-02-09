@@ -13,7 +13,7 @@ namespace WebShopApp.DAL
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItems> Items { get; set; }
-        public DbSet<ShippingAddress> ShippingAddresses { get; set; }
+        public DbSet<OrderShippingAddress> ShippingAddresses { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace WebShopApp.DAL
                 oi.HasKey(oi => new { oi.Id });
                 oi.Property(oi => oi.Id).ValueGeneratedOnAdd();
             });
-            modelBuilder.Entity<ShippingAddress>(sh =>
+            modelBuilder.Entity<OrderShippingAddress>(sh =>
             {
                 sh.HasKey(sh => new { sh.Id });
                 sh.Property(sh => sh.Id).ValueGeneratedOnAdd();

@@ -18,7 +18,7 @@ namespace WebShopApp.DAL.Models
         public string Title { get; set; }
 
         [Required]
-        public string Image {  get; set; }
+        public string Image { get; set; }
 
         [Required]
         public double Price { get; set; }

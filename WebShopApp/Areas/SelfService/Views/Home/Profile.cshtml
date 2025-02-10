@@ -29,31 +29,51 @@
                     <div class="d-flex flex-column align-items-center justify-content-center mt-4">
                         <div class="col-md-12">
                             <hr />
-                            <form method="post" id="editUserForm">
-                                <table class="table table-sm table-border-0 table-responsive table-hover">
-                                    <tr>
-                                        <td><strong>Email:</strong></td>
-                                        <td>@Model.Email</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Phone number:</strong></td>
-                                        <td id="phoneDisplay">@Model.Phone</td>
-                                        <td id="phoneEdit" style="display: none;">
-                                            <input type="text" placeholder="Insert phone number" name="Phone" class="form-control border-0" style="outline: none; height: 30px;" value="@Model.Phone" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Address:</strong></td>
-                                        <td id="addressDisplay">@Model.Adresa</td>
-                                        <td id="addressEdit" style="display: none;">
-                                            <input type="text" placeholder="Insert home address" name="Adresa" class="form-control border-0" style="outline: none; height: 30px;" value="@Model.Adresa" />
-                                        </td>
-                                    </tr>
-                                </table>
+                            <form method="post" id="editUserForm" class="p-3">
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <label for="FirstName"><strong>First Name:</strong></label>
+                                        <input type="text" id="FirstName" name="FirstName" class="form-control" value="@Model.FirstName" />
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="LastName"><strong>Last Name:</strong></label>
+                                        <input type="text" id="LastName" name="LastName" class="form-control" value="@Model.LastName" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="Email"><strong>Email:</strong></label>
+                                    <input type="email" id="Email" name="Email" class="form-control" value="@Model.Email" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="Phone"><strong>Phone number:</strong></label>
+                                    <input type="text" id="Phone" name="Phone" class="form-control" value="@Model.Phone" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="Phone"><strong>Country:</strong></label>
+                                    <input type="text" id="Country" name="Country" class="form-control" value="@Model.Country" />
+                                </div>
+
+
+                                <div class="row mb-3">
+                                    <div class="col-4">
+                                        <label for="City"><strong>City:</strong></label>
+                                        <input type="text" id="City" name="City" class="form-control" value="@Model.City" />
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="PostalCode"><strong>Postal Code:</strong></label>
+                                        <input type="text" id="PostalCode" name="PostalCode" class="form-control" value="@Model.PostalCode" />
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="Address"><strong>Address:</strong></label>
+                                        <input type="text" id="Address" name="Address" class="form-control" value="@Model.Address" />
+                                    </div>
+                                </div>
 
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-primary mb-3" id="editButton" onclick="enableEdit();">Uredi</button>
-                                    <button type="submit" class="btn btn-primary mb-3" id="saveButton" style="display: none;">Save Changes</button>
+                                    <button type="submit" class="btn btn-primary mb-3">Save Changes</button>
                                 </div>
                             </form>
                         </div>

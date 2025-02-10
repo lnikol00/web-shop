@@ -2,11 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Webp;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Metrics;
 using WebShopApp.Areas.SelfService.Models;
 using WebShopApp.Controllers.Base;
+using WebShopApp.DAL.Enums;
 using WebShopApp.DAL.Models;
 using WebShopApp.Exceptions;
 using WebShopApp.Infrastructure.Interface;
+using WebShopApp.Models.Shop;
 
 namespace WebShopApp.Areas.SelfService.Controllers
 {
@@ -34,7 +38,7 @@ namespace WebShopApp.Areas.SelfService.Controllers
         {
             return View();
         }
-        
+
         public IActionResult ChangePassword()
         {
             return View();
@@ -127,9 +131,30 @@ namespace WebShopApp.Areas.SelfService.Controllers
                 }
 
 
-                if (korisnik.Adresa != model.Adresa)
+                if (korisnik.Address != model.Address)
                 {
-                    korisnik.Adresa = model.Adresa;
+                    korisnik.Address = model.Address;
+                    repository.Update(korisnik, Korisnik.Name);
+                    await repository.SaveAsync();
+                }
+
+                if (korisnik.City != model.City)
+                {
+                    korisnik.City = model.City;
+                    repository.Update(korisnik, Korisnik.Name);
+                    await repository.SaveAsync();
+                }
+
+                if (korisnik.PostalCode != model.PostalCode)
+                {
+                    korisnik.PostalCode = model.PostalCode;
+                    repository.Update(korisnik, Korisnik.Name);
+                    await repository.SaveAsync();
+                }
+
+                if (korisnik.Country != model.Country)
+                {
+                    korisnik.Country = model.Country;
                     repository.Update(korisnik, Korisnik.Name);
                     await repository.SaveAsync();
                 }
@@ -139,6 +164,5 @@ namespace WebShopApp.Areas.SelfService.Controllers
 
             return base.Accepted();
         }
-
     }
 }

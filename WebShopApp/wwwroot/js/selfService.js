@@ -31,13 +31,16 @@ $("#editUserForm").submit(function (e) {
     e.preventDefault();
 
     var phone = $("input[name='Phone']").val();
-    var address = $("input[name='Adresa']").val();
+    var address = $("input[name='Address']").val();
+    var city = $("input[name='City']").val();
+    var postalCode = $("input[name='PostalCode']").val();
+    var country = $("input[name='Country']").val();
 
 
     $.ajax({
         type: "POST",
         url: '/SelfService/Home/EditUser',
-        data: { Phone: phone, Adresa: address },
+        data: { Phone: phone, Address: address, City: city, PostalCode: postalCode, Country: country },
         success: function (data) {
             location.reload();
         },

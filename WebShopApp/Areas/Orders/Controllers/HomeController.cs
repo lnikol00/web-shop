@@ -23,6 +23,10 @@ namespace WebShopApp.Areas.Orders.Controllers
 
         public IActionResult Index()
         {
+            var cartItems = HttpContext.Session.GetObjectFromJson<List<CartViewModel>>("CartItems") ?? new List<CartViewModel>();
+
+            ViewBag.CartItems = cartItems;
+
             return View();
         }
 

@@ -32,7 +32,11 @@ namespace WebShopApp.DAL.Models
 
         [MaxLength(128)]
         [Display(Name = "Adress")]
-        public string? Adresa { get; set; }
+        public string? Address { get; set; }
+        public string? City { get; set; }
+        public string? PostalCode { get; set; }
+
+        public string? Country { get; set; }
 
         [Display(Name = "User activity")]
         public bool IsUserActive { get; set; }

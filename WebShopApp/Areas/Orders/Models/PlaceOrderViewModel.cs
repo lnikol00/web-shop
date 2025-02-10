@@ -6,6 +6,8 @@ namespace WebShopApp.Areas.Orders.Models
     {
         public ApplicationUser User { get; set; }
         public ShippingAddressViewModel ShippingAddress { get; set; }
+
+        public double EstimatedTotal { get; set; }
     }
 
     public class ShippingAddressViewModel
@@ -13,5 +15,6 @@ namespace WebShopApp.Areas.Orders.Models
         public string Address { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }
+        public string Country { get; set; }
     }
 }

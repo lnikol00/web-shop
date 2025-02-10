@@ -9,7 +9,7 @@ namespace WebShopApp.DAL.Models
         [Required]
         public string Id { get; set; }
         [Required]
-        public int OrderId { get; set; }
+        public string OrderId { get; set; }
 
         [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }

@@ -2,7 +2,6 @@
 using WebShopApp.Areas.Orders.Models;
 using WebShopApp.Controllers.Base;
 using WebShopApp.DAL.Models;
-using WebShopApp.Exceptions;
 using WebShopApp.Infrastructure.Interface;
 using WebShopApp.Infrastructure.Services;
 using WebShopApp.Models.Shop;
@@ -21,18 +20,28 @@ namespace WebShopApp.Areas.Orders.Controllers
             this.repository = repository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var cartItems = HttpContext.Session.GetObjectFromJson<List<CartViewModel>>("CartItems") ?? new List<CartViewModel>();
+            double totalPrice = cartItems.Sum(item => item.Price * item.Quantity);
 
             ViewBag.CartItems = cartItems;
 
-            return View();
+            var userInfo = await repository.GetByIdAsync<ApplicationUser>(Korisnik.Id);
+
+            var viewModel = new PlaceOrderViewModel()
+            {
+                User = userInfo,
+                EstimatedTotal = totalPrice,
+            };
+
+            return View(viewModel);
         }
 
 
+
         [HttpPost]
-        public async Task<ActionResult> PlaceOrder(ShippingAddressViewModel shippingAddressViewModel)
+        public async Task<ActionResult> PlaceOrder(ShippingAddressViewModel placeOrder)
         {
             var cartItems = HttpContext.Session.GetObjectFromJson<List<CartViewModel>>("CartItems") ?? new List<CartViewModel>();
             double totalPrice = cartItems.Sum(item => item.Price * item.Quantity);
@@ -49,9 +58,10 @@ namespace WebShopApp.Areas.Orders.Controllers
             var shippingAddress = new OrderShippingAddress
             {
                 OrderId = order.Id,
-                Address = shippingAddressViewModel.Address,
-                City = shippingAddressViewModel.City,
-                PostalCode = shippingAddressViewModel.PostalCode
+                Address = placeOrder.Address,
+                City = placeOrder.City,
+                PostalCode = placeOrder.PostalCode,
+                Country = placeOrder.Country
             };
 
             repository.Create<OrderShippingAddress>(shippingAddress);

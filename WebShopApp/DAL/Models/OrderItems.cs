@@ -7,9 +7,9 @@ namespace WebShopApp.DAL.Models
     public class OrderItems
     {
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
-        public int OrderId { get; set; }
+        public string OrderId { get; set; }
 
         [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }

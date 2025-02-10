@@ -7,7 +7,7 @@ namespace WebShopApp.DAL.Models
     public class Order
     {
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
         public string UserId { get; set; }
 

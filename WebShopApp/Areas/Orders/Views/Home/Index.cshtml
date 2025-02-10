@@ -1,5 +1,86 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model WebShopApp.Areas.Orders.Models.PlaceOrderViewModel
+
+<div class="container">
+    <div class="row">
+        <!-- Kontakt i shipping forma -->
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h2 class="card-title">Delivery info</h2>
+
+                <form method="post" id="placeOrder" class="p-3">
+
+                    <div class="mb-3">
+                        <label for="Email"><strong>Email:</strong></label>
+                        <input type="email" id="Email" name="Email" class="form-control" value="@Model.User.Email" readonly/>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="FirstName"><strong>First Name:</strong></label>
+                            <input type="text" id="FirstName" name="FirstName" class="form-control" value="@Model.User.FirstName" readonly/>
+                        </div>
+                        <div class="col-6">
+                            <label for="LastName"><strong>Last Name:</strong></label>
+                            <input type="text" id="LastName" name="LastName" class="form-control" value="@Model.User.LastName" readonly/>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="Phone"><strong>Phone number:</strong></label>
+                        <input type="text" id="Phone" name="Phone" class="form-control" value="@Model.User.Phone" readonly/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Phone"><strong>Country: *</strong></label>
+                        <input type="text" id="Country" name="Country" class="form-control" value="@Model.User.Country" />
+                    </div>
+
+
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label for="City"><strong>City: *</strong></label>
+                            <input type="text" id="City" name="City" class="form-control" value="@Model.User.City" />
+                        </div>
+                        <div class="col-4">
+                            <label for="PostalCode"><strong>Postal Code: *</strong></label>
+                            <input type="text" id="PostalCode" name="PostalCode" class="form-control" value="@Model.User.PostalCode" />
+                        </div>
+                        <div class="col-4">
+                            <label for="Address"><strong>Address: *</strong></label>
+                            <input type="text" id="Address" name="Address" class="form-control" value="@Model.User.Address" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Pregled narudžbe -->
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h2 class="card-title">View order</h2>
+
+                @foreach (var item in ViewBag.CartItems)
+                {
+                    <div class="d-flex align-items-center ">
+                        <img src="@item.Image" alt="@item.Title" style="width: 10em; height: 10em; object-fit: cover;" />
+                        <div class="d-flex flex-column ml-3">
+                            <span>@item.Title</span>
+                            <span>@item.Quantity x @String.Format("{0:C}", item.Price)</span>
+                        </div>
+                    </div>
+                }
+
+                <div class="total-price">
+                    Ukupna cijena: @String.Format("{0:C}", Model.EstimatedTotal)
+                </div>
+
+                <button class="btn btn-success w-100 mt-4" onclick="placeOrder()">Finish </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/checkout.js" asp-append-version="true"></script>
 }

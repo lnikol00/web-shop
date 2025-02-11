@@ -1,16 +1,56 @@
 ﻿@model WebShopApp.DAL.Models.Order
 
+@inject WebShopApp.Infrastructure.Interface.IRepository repository
+
 <div class="col-12 mt-4">
     <div class="card">
         <div class="card-header">
-            <h4>Detalji Narudžbe</h4>
+            <h4>Order Details</h4>
         </div>
         <div class="card-body">
-            <p>Dodaj elemente ili detalje o narudžbi ovdje...</p>
-            <ul>
-                <li>Proizvod 1 - 100,00 HRK</li>
-                <li>Proizvod 2 - 200,00 HRK</li>
-            </ul>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h5>Shipping info</h5>
+                    @{
+                        var shippingInfo = await repository.GetAsync<WebShopApp.DAL.Models.OrderShippingAddress>(os => os.OrderId == Model.Id);
+                    }
+                    @foreach (var info in shippingInfo)
+                    {
+                        <p><strong>Country: </strong>@info.Country</p>
+                        <p><strong>City: </strong>@info.City</p>
+                        <p><strong>Postal Code: </strong>@info.PostalCode</p>
+                        <p><strong>Address: </strong>@info.Address</p>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <h5>Items</h5>
+                    @{
+                        var items = await repository.GetAsync<WebShopApp.DAL.Models.OrderItems>(oi => oi.OrderId == Model.Id);
+                    }
+                    <div class="row">
+                        @foreach (var item in items)
+                        {
+                            <div class="col-12 mb-3">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <img src="@item.Image" alt="@item.Title" class="img-fluid" style="width: 10em; height: 10em; object-fit: cover;" />
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="d-flex flex-column">
+                                            <span>@item.Title</span>
+                                            <span>@item.Qty x @String.Format("{0:C}", item.Price)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="total-price mt-3">
+                        Ukupna cijena: @String.Format("{0:C}", Model.EstimatedTotal)
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>

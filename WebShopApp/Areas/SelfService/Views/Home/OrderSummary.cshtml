@@ -24,9 +24,9 @@
                         <tbody>
                             @foreach (var order in Model)
                             {
-                                <tr onclick="chosenRow('@order.Id')">
+                                <tr class="@((order.isPaid ? "table-success" : "table-danger"))" onclick="chosenRow('@order.Id')">
                                     <td>@order.Id</td>
-                                    <td>@order.isPaid</td>
+                                    <td>@(order.isPaid ? "Paid" : "Not Paid")</td>
                                     <td>Datum</td>
                                     <td>@order.EstimatedTotal</td>
                                 </tr>

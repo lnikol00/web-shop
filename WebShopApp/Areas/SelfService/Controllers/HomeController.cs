@@ -31,7 +31,7 @@ namespace WebShopApp.Areas.SelfService.Controllers
 
         public async Task<IActionResult> OrderSummary()
         {
-            var orders = await repository.GetAllAsync<Order>();
+            var orders = await repository.GetAsync<Order>(o => o.UserId == Korisnik.Id);
 
             return View(orders);
         }

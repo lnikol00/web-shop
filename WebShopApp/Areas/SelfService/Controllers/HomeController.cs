@@ -2,15 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Webp;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Metrics;
-using WebShopApp.Areas.SelfService.Models;
 using WebShopApp.Controllers.Base;
-using WebShopApp.DAL.Enums;
 using WebShopApp.DAL.Models;
 using WebShopApp.Exceptions;
 using WebShopApp.Infrastructure.Interface;
-using WebShopApp.Models.Shop;
 
 namespace WebShopApp.Areas.SelfService.Controllers
 {
@@ -34,9 +29,21 @@ namespace WebShopApp.Areas.SelfService.Controllers
             return View(userInfo);
         }
 
-        public IActionResult OrderSummary()
+        public async Task<IActionResult> OrderSummary()
         {
-            return View();
+            var orders = await repository.GetAllAsync<Order>();
+
+            return View(orders);
+        }
+
+        public async Task<IActionResult> ViewOrder(string id)
+        {
+            Order order = await repository.GetByIdAsync<Order>(id);
+
+            if (order == null)
+                throw new ErrorMessage("No order with this id!");
+            else
+                return PartialView("_ViewOrder", order);
         }
 
         public IActionResult ChangePassword()

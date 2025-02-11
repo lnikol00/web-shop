@@ -2,6 +2,7 @@
 using WebShopApp.Areas.Orders.Models;
 using WebShopApp.Controllers.Base;
 using WebShopApp.DAL.Models;
+using WebShopApp.Exceptions;
 using WebShopApp.Infrastructure.Interface;
 using WebShopApp.Infrastructure.Services;
 using WebShopApp.Models.Shop;
@@ -38,7 +39,20 @@ namespace WebShopApp.Areas.Orders.Controllers
             return View(viewModel);
         }
 
+        public async Task<IActionResult> OrderDetails(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                Order order = await repository.GetByIdAsync<Order>(id);
 
+                return View(order);
+            }
+            else
+            {
+                throw new ErrorMessage("No order with this id!");
+            }
+
+        }
 
         [HttpPost]
         public async Task<ActionResult> PlaceOrder(ShippingAddressViewModel placeOrder)
@@ -82,9 +96,12 @@ namespace WebShopApp.Areas.Orders.Controllers
 
             await repository.SaveAsync();
 
+            HttpContext.Session.Remove("CartItems");
+
             TempData["success"] = "Order completed!";
 
-            return RedirectToAction("Index", "Home", new { area = "" });
+            //return RedirectToAction("OrderDetails", new { id = order.Id });
+            return Json(new { redirectToUrl = Url.Action("OrderDetails", new { id = order.Id }) });
         }
     }
 }

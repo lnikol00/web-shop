@@ -11,3 +11,9 @@ function showSpinner() {
 function hideSpinner() {
     document.getElementById("spinner").style.display = "none";
 }
+
+//$(function () {
+//    $.get('/SelfService/Home/ViewOrder', function (data, status) {
+//        $('#vieworder').html(data);
+//    });
+//})

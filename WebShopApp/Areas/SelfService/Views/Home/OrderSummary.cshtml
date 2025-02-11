@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<WebShopApp.DAL.Models.Order>
+
 @{
+    ViewData["Title"] = "Order summary";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Order Summary</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Ukupna Cijena</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model)
+                            {
+                                <tr onclick="chosenRow('@order.Id')">
+                                    <td>@order.Id</td>
+                                    <td>@order.isPaid</td>
+                                    <td>Datum</td>
+                                    <td>@order.EstimatedTotal</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="vieworder" name="vieworder"></div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/selfservice.js" asp-append-version="true"></script>
 }

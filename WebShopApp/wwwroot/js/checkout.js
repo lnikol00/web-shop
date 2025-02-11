@@ -10,7 +10,9 @@
         url: '/Orders/Home/PlaceOrder',
         data: { Address: address, City: city, PostalCode: postalCode, Country: country },
         success: function (data, status) {
-            location.reload();
+            if (data.redirectToUrl) {
+                window.location.href = data.redirectToUrl;
+            }
         },
         error: function (data, status) {
         }

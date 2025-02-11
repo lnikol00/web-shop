@@ -1,5 +1,10 @@
 ﻿@model WebShopApp.Areas.Orders.Models.PlaceOrderViewModel
 
+@{
+    ViewData["Title"] = "Place order";
+}
+
+
 <div class="container">
     <div class="row">
         <!-- Kontakt i shipping forma -->
@@ -11,24 +16,24 @@
 
                     <div class="mb-3">
                         <label for="Email"><strong>Email:</strong></label>
-                        <input type="email" id="Email" name="Email" class="form-control" value="@Model.User.Email" readonly/>
+                        <input type="email" id="Email" name="Email" class="form-control" value="@Model.User.Email" readonly />
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-6">
                             <label for="FirstName"><strong>First Name:</strong></label>
-                            <input type="text" id="FirstName" name="FirstName" class="form-control" value="@Model.User.FirstName" readonly/>
+                            <input type="text" id="FirstName" name="FirstName" class="form-control" value="@Model.User.FirstName" readonly />
                         </div>
                         <div class="col-6">
                             <label for="LastName"><strong>Last Name:</strong></label>
-                            <input type="text" id="LastName" name="LastName" class="form-control" value="@Model.User.LastName" readonly/>
+                            <input type="text" id="LastName" name="LastName" class="form-control" value="@Model.User.LastName" readonly />
                         </div>
                     </div>
 
 
                     <div class="mb-3">
                         <label for="Phone"><strong>Phone number:</strong></label>
-                        <input type="text" id="Phone" name="Phone" class="form-control" value="@Model.User.Phone" readonly/>
+                        <input type="text" id="Phone" name="Phone" class="form-control" value="@Model.User.Phone" readonly />
                     </div>
 
                     <div class="mb-3">

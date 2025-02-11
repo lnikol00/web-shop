@@ -58,3 +58,17 @@ function enableEdit() {
     document.getElementById("editButton").style.display = "none";
     document.getElementById("saveButton").style.display = "inline-block";
 }
+
+var chosenOrder;
+function chosenRow(id) {
+
+    if (chosenOrder == id) {
+        return;
+    }
+    else {
+        chosenOrder = id;
+        $.get('/SelfService/Home/ViewOrder' + '?id=' + id, function (data, status) {
+            $('#vieworder').html(data);
+        });
+    }
+}

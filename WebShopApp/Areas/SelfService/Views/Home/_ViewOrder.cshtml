@@ -21,6 +21,18 @@
                         <p><strong>Postal Code: </strong>@info.PostalCode</p>
                         <p><strong>Address: </strong>@info.Address</p>
                     }
+                    @if (Model.isPaid)
+                    {
+                        <p class="alert alert-success" style="border: 2px solid green; background-color: lightgreen;">
+                            Payment finalized, order has been sent.
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="alert alert-danger" style="border: 2px solid red; background-color: pink;">
+                            You need to finalize payment for the order to be sent.
+                        </p>
+                    }
                 </div>
                 <div class="col-md-6">
                     <h5>Items</h5>

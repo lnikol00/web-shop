@@ -16,6 +16,8 @@ namespace WebShopApp.DAL.Models
 
         [Required]
         public double EstimatedTotal { get; set; }
+        [Required]
+        public DateTime OrderDate { get; set; } = DateTime.Now;
 
         public bool isPaid { get; set; } = false;
 

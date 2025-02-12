@@ -1,9 +1,120 @@
-﻿@model WebShopApp.DAL.Models.Order
+﻿@model WebShopApp.Areas.Orders.Models.OrderDetailsViewModel
+
+@inject WebShopApp.Infrastructure.Interface.IRepository repository
 
 @{
     ViewData["Title"] = "Order details";
+
+    var orderItems = await repository.GetAsync<WebShopApp.DAL.Models.OrderItems>(i => i.OrderId == Model.Order.Id);
+    var shippingAddress = await repository.GetAsync<WebShopApp.DAL.Models.OrderShippingAddress>(i => i.OrderId == Model.Order.Id);
 }
 
 
-<h2>Order page</h2>
-<span>Order id: @Model.Id</span>
+<div class="container my-5">
+    <!-- Info Container: Customer, Order Info, Delivery Info -->
+    <div class="row mb-4">
+        <!-- Kupac -->
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon bg-warning rounded-circle p-3 d-flex justify-content-center align-items-center" style="width:50px; height: 50px;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="fw-bold">User</h6>
+                            <p>@Model.User.FirstNameLastName<br />@Model.User.Email</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Info -->
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon bg-info rounded-circle p-3 d-flex justify-content-center align-items-center" style="width:50px; height: 50px;">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="fw-bold">Info</h6>
+                            @foreach (var item in shippingAddress)
+                            {
+                                <p>Dostava: @item.Country<br />Metoda plaćanja: Metoda</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delivery Info -->
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="icon bg-success rounded-circle p-3 d-flex justify-content-center align-items-center" style="width:50px; height: 50px;">
+                            <i class="fas fa-location-dot"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="fw-bold">Delivery to</h6>
+                            @foreach (var item in shippingAddress)
+                            {
+                                <p>@item.Address<br />@item.City, @item.PostalCode</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Items Container -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Items</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach (var item in orderItems)
+                        {
+                            <div class="col-12 mb-3">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <img src="@item.Image" alt="@item.Title" class="img-fluid" style="width: 10em; height: 10em; object-fit: cover;" />
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="d-flex flex-column">
+                                            <span>@item.Title</span>
+                                            <span>@item.Qty x @String.Format("{0:C}", item.Price)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Price -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <b>Total Price:</b>
+                        <span>€ @Model.Order.EstimatedTotal</span>
+                    </div>
+                    <!-- Order Button -->
+                    <form method="post">
+                        <button type="submit" class="btn btn-warning w-100 mt-3">PAY</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

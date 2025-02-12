@@ -45,7 +45,15 @@ namespace WebShopApp.Areas.Orders.Controllers
             {
                 Order order = await repository.GetByIdAsync<Order>(id);
 
-                return View(order);
+                var korisnik = await repository.GetByIdAsync<ApplicationUser>(Korisnik.Id);
+
+                var viewModel = new OrderDetailsViewModel()
+                {
+                    Order = order,
+                    User = korisnik,
+                };
+
+                return View(viewModel);
             }
             else
             {

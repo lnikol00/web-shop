@@ -4,7 +4,7 @@
     ViewData["Title"] = "Order summary";
 }
 
-<div class="container mt-4">
+<div class="container mt-5">
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -25,9 +25,9 @@
                             @foreach (var order in Model)
                             {
                                 <tr class="@((order.isPaid ? "table-success" : "table-danger"))" onclick="chosenRow('@order.Id')">
-                                    <td>@order.Id</td>
+                                    <td><a href="@Url.Action("OrderDetails", "Home", new {area = "Orders",id = order.Id  })">@order.Id</a></td>
                                     <td>@(order.isPaid ? "Paid" : "Not Paid")</td>
-                                    <td>Datum</td>
+                                    <td>@order.OrderDate.ToShortDateString()</td>
                                     <td>@order.EstimatedTotal</td>
                                 </tr>
                             }

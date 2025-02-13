@@ -122,9 +122,11 @@ else
                         <span>€ @Model.Order.EstimatedTotal</span>
                     </div>
                     <!-- Order Button -->
-                    <form method="post">
-                        <button type="submit" class="btn btn-warning w-100 mt-3">PAY</button>
-                    </form>
+                    @if(Model.Order.isPaid == false){
+                        <form method="post">
+                            <button type="submit" class="btn btn-warning w-100 mt-3">PAY</button>
+                        </form>
+                    }
                 </div>
             </div>
         </div>

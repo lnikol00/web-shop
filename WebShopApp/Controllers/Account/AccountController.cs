@@ -136,6 +136,47 @@ namespace WebShopApp.Controllers.Account
 
         #endregion
 
+        #region CHANGE PASSWORD
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ChangePassword()
+        {
+            ChangePasswordViewModel changePassword = new ChangePasswordViewModel();
+            return View(changePassword);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    TempData["success"] = "Password successfuly changed!";
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    AddErrors(result);
+                    ModelState.AddModelError("", "Error occurred while changing the password.");
+                    return View(model);
+                }
+            }
+
+            return View(model);
+        }
+
+        #endregion
+
         #region PRIVATE 
         private void AddErrors(IdentityResult result)
         {

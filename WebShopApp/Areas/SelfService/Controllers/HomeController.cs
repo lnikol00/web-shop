@@ -46,12 +46,6 @@ namespace WebShopApp.Areas.SelfService.Controllers
                 return PartialView("_ViewOrder", order);
         }
 
-        public IActionResult ChangePassword()
-        {
-            return View();
-        }
-
-
         [AllowAnonymous]
         public async Task<IActionResult> GetProfilePicture(string korisnikId = null)
         {

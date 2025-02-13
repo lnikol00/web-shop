@@ -27,33 +27,39 @@
     <header>
         <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-black border-bottom box-shadow mb-3">
             <div class="container-fluid px-5">
-                <div class="navbar-nav d-flex justify-content-start align-items-center ms-0 gap-2">
-                 @if (User.Identity.IsAuthenticated)  
-                {
-                    <div class="dropdown">
-                        <partial name="_DropdownMenu" />
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse">
+                    <div class="navbar-nav d-flex justify-content-start align-items-center ms-0 gap-2">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="dropdown">
+                                <partial name="_DropdownMenu" />
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="/Account/Login" class="nav-link text-white" style="font-size:18px;">Login</a>
+                        }
                     </div>
-                }
-                else
-                {
-                    <a href="/Account/Login" class="nav-link text-white" style="font-size:18px;">Login</a>
-                }
+                    <div class="navbar-nav ms-auto gap-2">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <a class="navbar-brand fs-3" asp-area="" asp-controller="Home" asp-action="Index">OnlineShop</a>
+                            <a href="/Cart" class="text-white fs-3 position-relative d-inline-block text-decoration-none">
+                                <i class="fa-solid fa-bag-shopping mx-2"></i>
+                                @if (cartItems.Count > 0)
+                                {
+                                    <span class="badge bg-warning text-dark rounded-circle cart-badge fs-6 position-absolute">
+                                        @cartItems.Count
+                                    </span>
+                                }
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="navbar-nav ms-auto gap-2">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <a class="navbar-brand fs-3" asp-area="" asp-controller="Home" asp-action="Index">OnlineShop</a>
-                        <a href="/Cart" class="text-white fs-3 position-relative d-inline-block text-decoration-none">
-                            <i class="fa-solid fa-bag-shopping mx-2"></i>
-                            @if (cartItems.Count > 0)
-                            {
-                                <span class="badge bg-warning text-dark rounded-circle cart-badge fs-6 position-absolute">
-                                    @cartItems.Count
-                                </span>
-                            }
-                        </a>
-                    </div>
-                </div>
             </div>
         </nav>
     </header>

@@ -9,6 +9,18 @@
     var shippingAddress = await repository.GetAsync<WebShopApp.DAL.Models.OrderShippingAddress>(i => i.OrderId == Model.Order.Id);
 }
 
+@if (Model.Order.isPaid)
+{
+    <p class="alert alert-success" style="border: 2px solid green; background-color: lightgreen;">
+        Payment finalized, order has been sent.
+    </p>
+}
+else
+{
+    <p class="alert alert-danger" style="border: 2px solid red; background-color: pink;">
+        You need to finalize payment for the order to be sent.
+    </p>
+}
 
 <div class="container my-5">
     <!-- Info Container: Customer, Order Info, Delivery Info -->
